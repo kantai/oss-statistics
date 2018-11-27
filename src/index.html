@@ -1,0 +1,76 @@
+<html>
+<head>
+<link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<!-- included script is a browserified version of:
+     https://github.com/bitcoinjs/bitcoinjs-lib  -->
+<script src="./index.js"></script>
+<style>
+.panel-body  {
+    word-break:break-all
+}
+
+pre {
+  overflow: auto;
+  word-wrap: normal;
+  white-space: pre;
+}
+</style>
+
+<div class="container">
+<h2>Github Metrics Collection Tool</h2>
+</div>
+
+<div class="container">
+<div class="panel panel-default">
+<div class="panel panel-heading panel-heading-custom">Collect Data</div>
+<div class="panel-body">
+<form>
+  <div class="form-group">
+    <label for="api-key">Github API Key:</label>
+    <input type="text" id="api-key" class="form-control" style="width:400pt;" autocomplete="off" value="" />
+  </div>
+  <div class="form-group">
+    <button type="button" onClick="runAnalysis(false)" class="btn btn-primary">Analyze cached</button>
+  </div>
+  <div class="form-group">
+    <button type="button" onClick="runAnalysis(true)" class="btn btn-primary">Fetch and Analyze</button>
+  </div>
+</form>
+</div>
+</div>
+</div>
+
+<div class="invisible container" id="status-wrapper">
+<div class="panel panel-default">
+<div class="panel panel-heading panel-heading-custom">Fetching data</div>
+<div class="panel-body">
+<p>Fetching github data...</p>
+
+<div id="info">
+<p><strong><text id="data-count">0</text> requests made.</strong></p>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="invisible container" id="message-wrapper">
+<div class="panel panel-default">
+<div class="panel panel-heading panel-heading-custom">Community Metrics</div>
+<div class="panel-body" id="message">
+</div>
+</div>
+</div>
+
+<div class="invisible container" id="pr-message-wrapper">
+<div class="panel panel-default">
+<div class="panel panel-heading panel-heading-custom">PR Internal Metrics</div>
+<div class="panel-body" id="pr-message">
+</div>
+</div>
+</div>
+
+</body>
+</html>
