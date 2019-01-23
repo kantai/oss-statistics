@@ -7,6 +7,13 @@ out issues created by configured team members.
 
 # Running with docker-compose
 
+Clone this repo and cd into it:
+
+```bash
+$ git clone https://github.com/kantai/oss-statistics.git
+$ cd oss-statistics
+```
+
 Make a directory `data/` and copy your `config.json` into it.
 
 ```bash
