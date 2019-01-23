@@ -1,6 +1,12 @@
+#!/usr/bin/env node
+
 const fetch = require('cross-fetch')
-const config = require('./config.json')
 const fs = require('fs')
+
+const configLocation = process.env.CONFIG_FILE || './config.json'
+const dataLocation = process.env.DATA_FILE || './data.json'
+
+const config = JSON.parse(fs.readFileSync(configLocation))
 
 const github = 'https://api.github.com'
 
@@ -180,13 +186,16 @@ function analyzeOSS(repos, fromDate, toDate) {
   const allExternalStats = getIssuesStats(allExternal)
 
   console.log(`Total issues: ${totalIssues}, Total PRs: ${totalPRs}`)
-  console.log(`Response time: ${allExternalStats.medianDaysToFirstResponse}`)
+  console.log(`Response time (median days to first response): ${allExternalStats.medianDaysToFirstResponse}`)
+
+  console.log(`More details:
+${JSON.stringify(allExternalStats, undefined, 2)}`)
 }
 
 
 
 async function runAnalysis() {
-  const repoData = JSON.parse(fs.readFileSync('./data.json'))
+  const repoData = JSON.parse(fs.readFileSync(dataLocation))
   const sinceDate = new Date(process.argv[2]);
   const untilDate = new Date(process.argv[3]);
   console.log(`Acquiring data for [${sinceDate}, ${untilDate}]`)

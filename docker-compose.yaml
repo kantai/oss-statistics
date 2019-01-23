@@ -1,0 +1,13 @@
+version: '2'
+services:
+  statistics:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - CONFIG_FILE=/var/statistics/config.json
+      - DATA_FILE=/var/statistics/data.json
+      - START_DATE=01-01-2019
+      - END_DATE=01-30-2019
+    volumes:
+      - "./data/:/var/statistics/"

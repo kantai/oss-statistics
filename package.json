@@ -3,17 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
-  "scripts": {
-    "clean": "rm -rf dist/ && mkdir dist",
-    "build-libs": "browserify -o dist/index.js src/index.js",
-    "copy": "cp src/index.html src/bootstrap.min.css dist/",
-    "build": "npm run clean && npm run build-libs && npm run copy",
-    "clean-distribute": "rm -rf oss-statistics/ && rm -f oss-statistics.zip",
-    "distribute": "npm run clean-distribute && npm run build && npm run distribute-finish",
-    "distribute-finish": "cp -r dist/ oss-statistics/ && zip oss-statistics.zip -r oss-statistics/"
-  },
   "author": "Aaron Blankstein (aaron@blankstein.com)",
   "license": "MIT",
+  "bin" : { "fetch-data" : "./src/index.js",
+            "analyze": "./src/analyze.js" },
   "dependencies": {
     "cross-fetch": "^2.2.3"
   },

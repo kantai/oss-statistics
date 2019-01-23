@@ -3,3 +3,5 @@ dist
 node_modules
 oss-statistics
 oss-statistics.zip
+data
+data.json
