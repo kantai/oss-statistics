@@ -45,3 +45,5 @@ $ docker-compose build && docker-compose up
 
 You can edit the date range for the analysis by modifying the `docker-compose.yaml` file.
 
+This script will output some summary statistics to the command line. It will also output a CSV with per-repo statistics to the `/data/` directory.
+

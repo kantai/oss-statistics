@@ -5,6 +5,7 @@ const fs = require('fs')
 
 const configLocation = process.env.CONFIG_FILE || './config.json'
 const dataLocation = process.env.DATA_FILE || './data.json'
+const csvLocation = process.env.CSV_FILE || './analysis.csv'
 
 const config = JSON.parse(fs.readFileSync(configLocation))
 
@@ -160,6 +161,10 @@ function analyzeOSS(repos, fromDate, toDate) {
     const PRsOpenedByOthers = prs.filter(x => isExternal(x))
     const externalStatsPrs = getIssuesStats(PRsOpenedByOthers)
 
+    const totalExtStats = getIssuesStats([].concat(issuesOpenedByOthers).concat(PRsOpenedByOthers))
+    const totalStats = getIssuesStats([].concat(issues).concat(prs))
+
+
     issues.forEach(x => allIssues.push(x))
     issuesOpenedByOthers.forEach(x => externalIssues.push(x))
 
@@ -167,9 +172,18 @@ function analyzeOSS(repos, fromDate, toDate) {
     PRsOpenedByOthers.forEach(x => externalPRs.push(x))
 
     return { name: repo.name,
+             totalStats, totalExtStats,
              allStats, externalStats,
              allStatsPRs, externalStatsPrs }
   })
+
+  let data = `repo name, total issues, total prs, closed issues, closed PRs, external items without response, external median days to response ` +
+      repoAnalysis.map(x => {
+                     return `${x.name}, ${x.allStats.issuesClosed + x.allStats.issuesOpen}, ${x.allStatsPRs.issuesClosed + x.allStatsPRs.issuesOpen}, ` +
+                       `${x.allStats.issuesClosed}, ${x.allStatsPRs.issuesClosed}, ${x.totalExtStats.issuesWithoutResponse}, ${x.totalExtStats.medianDaysToFirstResponse}`
+      }).join('\n') + '\n'
+
+  fs.writeFileSync(csvLocation, data)
 
   const sumAnalysis = {
     allStats: getIssuesStats(allIssues),

@@ -7,6 +7,7 @@ services:
     environment:
       - CONFIG_FILE=/var/statistics/config.json
       - DATA_FILE=/var/statistics/data.json
+      - CSV_FILE=/var/statistics/analysis.csv
       - START_DATE=01-01-2019
       - END_DATE=01-30-2019
     volumes:
